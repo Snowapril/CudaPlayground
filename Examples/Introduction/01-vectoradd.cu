@@ -2,6 +2,8 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
+#include <cuda_runtime.h>
+#include <Common/helper_cuda.h>
 
 //! CUDA Kernel for vector addition
 //! __global__ means this is called from the CPU and runs on the GPU
@@ -38,9 +40,9 @@ int main()
 
 	//! Allocate memory on the device
 	int* d_a, * d_b, * d_c;
-	cudaMalloc(d_a, bytes);
-	cudaMalloc(d_b, bytes);
-	cudaMalloc(d_c, bytes);
+	cudaMalloc(&d_a, bytes);
+	cudaMalloc(&d_b, bytes);
+	cudaMalloc(&d_c, bytes);
 
 	//! Copy data from the host to the device(CPU -> GPU)
 	cudaMemcpy(d_a, a.data(), bytes, cudaMemcpyHostToDevice);
@@ -57,7 +59,7 @@ int main()
 	//! Launch the kernel on the GPU
 	//! Kernel calls are asynchronous (the CPU program continues execution after
 	//! call, but no necessarily before the kernel finishes)
-	vectorAdd<<<NUM_BLOCKS, NUM_THREADS>>>(d_a, d_b, d_c);
+	vectorAdd<<<NUM_BLOCKS, NUM_THREADS>>>(d_a, d_b, d_c, N);
 
 	//! Copy sum vector from device to host
 	//! cudaMemcpy is a synchronous operation, and waits for the prior kernel
