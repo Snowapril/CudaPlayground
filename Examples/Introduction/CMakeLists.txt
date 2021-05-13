@@ -62,4 +62,4 @@ foreach(SESSION ${sources})
                    PROPERTY
                    BUILD_RPATH ${CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES})
     endif()
-endforeach(PROBLEM)
+endforeach(SESSION)
