@@ -29,7 +29,6 @@ foreach(SESSION ${sources})
     set_target_properties(${FILE_NAME}
         PROPERTIES
         ${DEFAULT_PROJECT_OPTIONS}
-        VS_DEBUGGER_WORKING_DIRECTORY $<TARGET_FILE_DIR:Sources>
         CUDA_SEPARABLE_COMPILATION ON
     )
     
