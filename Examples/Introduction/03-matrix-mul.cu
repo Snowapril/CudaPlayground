@@ -5,18 +5,19 @@
 #include <cuda_runtime.h>
 #include <Common/helper_cuda.h>
 
-//! CUDA Kernel for vector addition
+//! CUDA Kernel for matrix multiplication
 //! __global__ means this is called from the CPU and runs on the GPU
 __global__ void matrixMul(const int* __restrict a, const int* __restrict b, int* __restrict c, int N)
 {
 	int col = blockDim.x * blockIdx.x + threadIdx.x;
 	int row = blockDim.y * blockIdx.y + threadIdx.y;
 
-	if ((0 <= col && col < N) && (0 <= row && row < N))
+	if ((col < N) && (row < N))
 	{
-		c[row * N + col] = 0;
+		int temp = 0;
 		for (int k = 0; k < N; ++k)
-			c[row * N + col] += a[row * N + k] * b[k * N + col];
+			temp += a[row * N + k] * b[k * N + col];
+		c[row * N + col] = temp;
 	}
 }
 
