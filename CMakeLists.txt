@@ -18,6 +18,8 @@ find_file(CUDA_THRUST_VERSION_H version.h PATHS "${CUDAToolkit_INCLUDE_DIRS}/thr
 get_filename_component(CUDA_THRUST_THRUST_DIR "${CUDA_THRUST_VERSION_H}" DIRECTORY)
 get_filename_component(CUDA_THRUST_INCLUDE_DIR "${CUDA_THRUST_THRUST_DIR}" DIRECTORY)
 add_library(CUDA::thrust INTERFACE IMPORTED)
+add_library(CUDA::cublas_static INTERFACE IMPORTED)
+include_directories(${CUDAToolkit_INCLUDE_DIRS})
 include_directories(${CUDA_THRUST_INCLUDE_DIR})
 
 # Set output directories

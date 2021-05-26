@@ -52,6 +52,7 @@ foreach(SESSION ${sources})
         ${DEFAULT_LINKER_OPTIONS}
     	${DEFAULT_LIBRARIES}
         CUDA::thrust
+        CUDA::cublas_static
         INTERFACE
     )
     
